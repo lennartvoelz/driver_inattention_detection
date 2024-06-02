@@ -1,9 +1,0 @@
-[0] Config.pm:306> INFO - This is Biber 2.18
-[0] Config.pm:309> INFO - Logfile is 'build/template.blg'
-[103] biber:340> INFO - === Sun Jun  2, 2024, 18:24:21
-[122] Biber.pm:418> INFO - Reading 'build/template.bcf'
-[207] Biber.pm:978> INFO - Found 0 citekeys in bib section 0
-[222] bbl.pm:654> INFO - Writing 'build/template.bbl' with encoding 'UTF-8'
-[223] bbl.pm:757> INFO - Output to build/template.bbl
-[223] Biber.pm:130> WARN - The file 'build/template.bcf' does not contain any citations!
-[223] Biber.pm:132> INFO - WARNINGS: 1
