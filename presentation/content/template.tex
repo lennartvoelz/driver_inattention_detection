@@ -1,0 +1,58 @@
+\input{content/header.tex}
+\begin{document}
+%1
+\maketitle
+%2
+\begin{frame}{\huge{Definition and motivation of problem task}}
+  \begin{itemize}
+    \item \textbf{Task:} Can a computer vision algorithm truthfully detect driver inattention, using a convolutional neural network? 
+    \item \textbf{Motivation:} Enhancing Road Safety: Driver inattention is a leading cause of road accidents. By detecting inattention early, potential collisions and accidents can be prevented, thereby saving lives and reducing injuries.
+  \end{itemize}
+\end{frame}
+% 
+\begin{frame}{\huge{Description of the Dataset}}
+  \begin{columns}
+    \column{.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Source:} \url{https://universe.roboflow.com/driver-monitoring/dmd-tfiw0} provided by Roboflow user
+        \item \textbf{License:} CC BY 4.0
+        \item \textbf{Content of the Dataset:} Labeled pictures in .jpg format, displaying male drivers in different states of attention
+        \item \textbf{Size of the Dataset:} 14859 pictures, (train: 80 \%, valid: 13 \%, test: 7 \%)
+        \item \textbf{Input features:} Greyscale image
+        \item \textbf{Target:}
+        \begin{itemize}
+          \item[-] Dangerous driving
+          \item[-] Distraction
+          \item[-] Drinking
+          \item[-] Safe driving
+          \item[-] Sleepy driving
+          \item[-] Yawn
+        \end{itemize}
+        \item \textbf{Prev. Work:} pretrained Roboflow interference model 
+      \end{itemize}
+    \column{.4\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{content/gA_1_s1_ir_face_mp4-26_jpg.rf.8073bccb5c613d34b8f058da71adc5d8.jpg}
+        \caption{Example picture of the dataset.}
+      \end{figure}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{\huge{Comparison to alternative methods}}
+  \begin{itemize}
+    \item Comparison to the pretrained model, which is accessible through the website.
+    \begin{itemize}
+      \item[-] Previous work is general computer vision model not specific to the dataset
+      \item[-] Use precision of pretrained model as comparison baseline 
+    \end{itemize}
+    \vspace{5mm}
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=.9\textwidth]{content/prec_pret.png}
+      \caption{Precision of Roboflow interference model.}
+    \end{figure}
+  \end{itemize}
+\end{frame}
+
+\end{document}
