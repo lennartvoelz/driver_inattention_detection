@@ -5,7 +5,7 @@
 %2
 \begin{frame}{\huge{Definition and motivation of problem task}}
   \begin{itemize}
-    \item \textbf{Research question:} Can a computer vision algorithm truthfully detect driver inattention, using a convolutional neural network? 
+    \item \textbf{Research question:} Is a Convolutional Neural Network capable of accurately detecting instances of driver inattention? 
     \item \textbf{Motivation:} Enhancing Road Safety: Driver inattention is a leading cause of road accidents. By detecting inattention early, potential collisions and accidents can be prevented, thereby saving lives and reducing injuries.
   \end{itemize}
 \end{frame}
@@ -56,8 +56,8 @@
     \textbf{Parameter} & \textbf{Value} \\
     \midrule
     Input Shape & \((192, 160, 1)\) \\
-    Filters & 64 \\
-    Kernel Size & \((3, 3)\) \\
+    Conv Filters & 64 \\
+    Conv Kernel Size & \((3, 3)\) \\
     Pool Size & \((3, 3)\) \\
     Padding & valid \\
     Dropout Rate & 0.4 \\
@@ -65,8 +65,8 @@
     Loss Function & Categorical Crossentropy \\
     Metrics & Accuracy \\
     Early Stopping & val\_loss, Patience: 7 \\
-    hidden layers activation & elu \\
-    output layer activation & softmax \\
+    Hidden Layers Activation & elu \\
+    Output Layer Activation & softmax \\
     \bottomrule
     \end{tabular}
     \caption{Model parameters used for training.}
