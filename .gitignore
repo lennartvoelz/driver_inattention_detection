@@ -1,3 +1,5 @@
 **/data/
 **/build/
 *.json
+**/scripts/bayes_directory/
+**/scripts/test_directory/
