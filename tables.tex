@@ -92,5 +92,29 @@
     \end{adjustbox}
 \end{table}
 
+\begin{table}[htbp]
+    \centering
+    \caption{Classification Report for Model}
+    \vspace{3pt}
+    \label{tab:classification_report_model}
+    \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{l|cc|c}
+        \toprule
+        \textbf{Class} & \textbf{Precision} & \textbf{Recall} & \textbf{Entries} \\
+        \midrule
+        Dangerous & 0.96 & 0.94 & 2003 \\
+        Distracted & 0.87 & 0.88 & 2000 \\
+        Drinking & 0.94 & 0.96 & 1998 \\
+        Safe & 0.85 & 0.84 & 2000 \\
+        Sleepy & 0.89 & 0.90 & 2000 \\
+        Yawn & 0.94 & 0.95 & 1999 \\
+        \midrule
+        Macro avg & 0.91 & 0.91& 12000 \\
+        Accuracy & 0.91 & \phantom{0} & 12000 \\
+        \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+\end{table}
+
 
 \end{document}
