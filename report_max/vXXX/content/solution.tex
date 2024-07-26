@@ -58,32 +58,33 @@ The augmentation was conducted using the tensorflow.keras.preprocessing.image.Im
         \centering
         \adjustbox{valign=c}{\includegraphics[width = \textwidth]{content/test_aug_2.jpg}}
     \end{subfigure}
-    \caption{Two exemplary augmnted pictures with zoom and shear (left) and noise (right).}
+    \caption{Two exemplary augmnted pictures with zoom and shear (right) and noise (left).}
     \label{fig:comp2}
 \end{figure}
 \noindent
 Two exemplary augmented pictures can be seen in \autoref{fig:comp2}. The final CNN with optimized hyperparameters was then trained on both the original dataset and the augmented dataset with 2000 entries in each class. While the performance was roughly equal, the confusion matrices show the necessity of equally sized classes.
-The confusion matrices for the training on both datasets can be seen in \autoref{fig:comp3}. The matrices' entries have been normalized for the number of entries of each class in the test data respectively, thus showing the recall of the class on the diagonal.
+The confusion matrices for the training on both datasets can be seen in \autoref{fig:comp3}. 
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.49\textwidth}
         \centering
-        \adjustbox{valign=c}{\includegraphics[width = \textwidth]{content/confusion_matrix_final_og_norm.png}}
+        \adjustbox{valign=c}{\includegraphics[width = \textwidth]{content/confusion_matrix_final_og.png}}
         \caption{Original dataset.}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.49\textwidth}
         \centering
-        \adjustbox{valign=c}{\includegraphics[width = \textwidth]{content/confusion_matrix_final_aug_norm.png}}
+        \adjustbox{valign=c}{\includegraphics[width = \textwidth]{content/confusion_matrix_final_aug.png}}
         \caption{Augmented dataset.}
     \end{subfigure}
     \caption{Confusion Matrices on the test data of the original dataset (left) and the augmented dataset (right).}
     \label{fig:comp3}
 \end{figure}
 \noindent
-The left confusion matrix of the original dataset shows huge amounts of miss classification of pictures labeled "Drinking". This is not only due to an inacurate prediction, but also due to the small amount of entries labeled "Drinking" in the original test data, with a total of only 25 "Drinking" images. This shows a signigicantly decreased sensitivity in the low number of entries classes in comparison to the confusion matrix of the augmented dataset. For these reasons the augmented dataset was chosen for the final comparison to the alternative model, showing a good recall in all of its classes.
+The left confusion matrix of the original dataset shows a great amount of miss classification of pictures labeled "Drinking". This is not only due to an inacurate prediction, but also due to the small amount of entries labeled "Drinking" in the original test data, with a total of only 25 "Drinking" images. This shows a signigicantly decreased sensitivity in the low number of entries classes in comparison to the confusion matrix of the augmented dataset. For these reasons the augmented dataset was chosen for the final comparison to the alternative model, showing superior sensitivity in the low entry classes.
 \subsection{Overfitting optimization}
-To avoid overfitting, several methods were implemented. The model itself contains 2 dropout layers with one in each dense block. These layers reduce overfitting as dropping out neurons during the training process is a form of regularization. Further regularization is introduced into the model by applying a L2 regularization to the loss function. This regularization penalizes large weights, leading to a reduction of the models complexity, which can be a reason for bad performance on unseen data. Both the dropout rate and regularization strength are hyperparameters, whose optimal values are obtained in the hyperparameter optimization. This leads to these methods being nearly optimally tuned to reduce overfitting.
+To avoid overfitting, several methods were implemented. The model itself contains 2 dropout layers with one in each dense block. These layers reduce overfitting as dropping out neurons during the training process regularizes the overtraining and increases the generalization of the model. Further regularization is introduced into the model by applying a L2 regularization to the loss function. This regularization penalizes large weights, leading to a reduction of the models complexity, which can be a reason for bad performance on unseen data.
+The L2 regularization works by adding an additional term to the loss function which is then given by $$J(\theta) = \frac{1}{m} \sum_{i=1}^{m} L(y^{(i)}, h_\theta(x^{(i)})) + \frac{\lambda}{2m} \|\theta\|^2 \, .$$ The first term of the regularized loss function $J$ describes the traditional loss given the true true label $y^{\left(i\right)}$ and the models prediction $h_\theta\left(x^{\left(i\right)}\right)$ while the second term describes the regularization proportional to the squared sum of weights $\|\theta\|^2$, penalizing huge weights. Both the dropout rate and regularization strength are hyperparameters, whose optimal values are obtained in the hyperparameter optimization. This leads to these methods being nearly optimally tuned to reduce overfitting.
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.49\textwidth}
