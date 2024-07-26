@@ -110,7 +110,7 @@ for i in tqdm.tqdm(range(12)):
 
     history = final_model.fit(X_train, y_train, validation_data=(X_valid, y_valid), epochs=100, batch_size=16, callbacks=[callback])
 
-    np.savetxt(f'../data/history_final_model_fold{i}.csv', np.array(history.history), delimiter=',')
+    np.save(f'../data/history_final_model_fold{i}.npy', history.history)
     
     y_pred = final_model.predict(X_test)
     y_pred = np.argmax(y_pred, axis=1)
