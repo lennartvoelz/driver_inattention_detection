@@ -114,7 +114,5 @@ tuner = BayesianOptimization(
 )
 
 tuner.search(X_aug_train, y_aug_train, epochs=12, validation_data=(X_aug_val, y_aug_val), batch_size=16)
-
 print(tuner.results_summary())
-
 print(tuner.get_best_hyperparameters()[0].values)

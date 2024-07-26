@@ -128,20 +128,22 @@ final_model = model_init(6, input_shape=(X_train[0].shape[0], X_train[0].shape[1
 
 final_model = final_model.build_model()
 
-final_model.compile(optimizer=Adam(learning_rate=opt_params["learning_rate"]), loss="categorical_crossentropy", metrics=["accuracy", "AUC", "Precision"])
+print(final_model.summary())
 
-history = final_model.fit(X_train, y_train, validation_data=(X_valid, y_valid), epochs=100, batch_size=16, callbacks=[callback])
+# final_model.compile(optimizer=Adam(learning_rate=opt_params["learning_rate"]), loss="categorical_crossentropy", metrics=["accuracy", "AUC", "Precision"])
 
-np.save('../data/history_final_model_olddata.npy', history.history)
+# history = final_model.fit(X_train, y_train, validation_data=(X_valid, y_valid), epochs=100, batch_size=16, callbacks=[callback])
 
-from sklearn.metrics import classification_report
+# np.save('../data/history_final_model_olddata.npy', history.history)
 
-y_pred = final_model.predict(X_test)
+# from sklearn.metrics import classification_report
 
-y_pred = np.argmax(y_pred, axis=1)
-y_true = np.argmax(y_test, axis=1)
+# y_pred = final_model.predict(X_test)
 
-np.save('../data/y_pred_final_olddata.npy', y_pred)
-np.save('../data/y_true_final_olddata.npy', y_true)
+# y_pred = np.argmax(y_pred, axis=1)
+# y_true = np.argmax(y_test, axis=1)
 
-print(classification_report(y_true, y_pred))
+# np.save('../data/y_pred_final_olddata.npy', y_pred)
+# np.save('../data/y_true_final_olddata.npy', y_true)
+
+# print(classification_report(y_true, y_pred))

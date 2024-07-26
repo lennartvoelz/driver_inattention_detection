@@ -1,0 +1,96 @@
+\documentclass{article}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+
+\begin{document}
+
+\begin{table}[ht]
+    \caption{The architecture of the neural network used for classification.}
+    \vspace{0.2cm}
+    \label{tab:dnn_architecture}
+    \centering
+    \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{l|l|r}
+        \toprule
+        \multicolumn{3}{c}{\textbf{Architecture}} \\
+        \midrule
+        \textbf{Layer} & \textbf{Output Shape} & \textbf{Param \#} \\
+        \midrule
+        Input Layer & (None, 80, 96, 1) & 0 \\
+        Conv2D & (None, 80, 96, 160) & 2,720 \\
+        Conv2D & (None, 80, 96, 160) & 409,760 \\
+        MaxPooling2D & (None, 40, 48, 160) & 0 \\
+        Conv2D & (None, 40, 48, 160) & 409,760 \\
+        Conv2D & (None, 40, 48, 160) & 409,760 \\
+        MaxPooling2D & (None, 20, 24, 160) & 0 \\
+        Conv2D & (None, 20, 24, 160) & 409,760 \\
+        Conv2D & (None, 20, 24, 160) & 409,760 \\
+        MaxPooling2D & (None, 10, 12, 160) & 0 \\
+        Flatten & (None, 19200) & 0 \\
+        Dense & (None, 448) & 8,602,048 \\
+        Dropout & (None, 448) & 0 \\
+        Dense & (None, 448) & 201,152 \\
+        Dropout & (None, 448) & 0 \\
+        Dense (Output) & (None, 6) & 2,694 \\
+        \midrule
+        \multicolumn{2}{l|}{\textbf{Total params}} & 10,857,414 \\
+        \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Hyperparameter Search Space and Best Values}
+    \vspace{0.2cm}
+    \label{tab:hyperparameters}
+    \centering
+    \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{l|l|l|r}
+        \toprule
+        \textbf{Hyperparameter} & \textbf{Original Search Space} & \textbf{Updated Search Space} & \textbf{Final Value} \\
+        \midrule
+        \textbf{num\_dense\_blocks} & 1 - 5 (step=1) & 2 - 4 (step=1) & 2 \\
+        \textbf{num\_dense\_units} & 64 - 512 (step=32) & 160 - 512 (step=32) & 448 \\
+        \textbf{num\_conv\_blocks} & 1 - 4 (step=1) & 1 - 3 (step=1) & 3 \\
+        \textbf{filters} & 32 - 256 (step=32) & 64 - 256 (step=32) & 160 \\
+        \textbf{kernel\_size} & 3 - 5 (step=1) & 3 - 5 (step=1) & 4 \\
+        \textbf{pool\_size} & 2 - 4 (step=1) & 2 - 4 (step=1) & 2 \\
+        \textbf{dropout\_rate} & 0.0 - 0.8 (step=0.1) & 0.4 - 0.7 (step=0.1) & 0.5 \\
+        \textbf{regularizer\_strength} & 0.00 - 0.1 (step=0.01) & 0.03 - 0.08 (step=0.01) & 0.06 \\
+        \textbf{conv\_activation} & \{relu, elu, tanh, sigmoid\} & \{relu, elu\} & elu \\
+        \textbf{dense\_activation} & \{relu, elu, tanh, sigmoid\} & \{relu, elu\} & elu \\
+        \textbf{learning\_rate} & 1e-4 - 1e-2 (log scale) & 1e-4 - 1e-3 (log scale) & 0.00011 \\
+        \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Comparison of Classification Reports}
+    \vspace{3pt}
+    \label{tab:classification_reports}
+    \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{l|cc|c|cc|c|cc|c}
+        \toprule
+        \textbf{Class} & \multicolumn{3}{c|}{\textbf{Excl. unidentified}} & \multicolumn{3}{c|}{\textbf{Incl. unidentified}} & \multicolumn{3}{c}{\textbf{CNN}} \\
+        \cmidrule{2-10}
+         & \textbf{Precision} & \textbf{Recall} & \textbf{Entries} & \textbf{Precision} & \textbf{Recall} & \textbf{Entries} & \textbf{Precision} & \textbf{Recall} & \textbf{Entries} \\
+        \midrule
+        Dangerous & 0.98 & 0.99 & 274 & 0.98 & 0.90 & 301 & 0.97 & 0.97 & 301 \\
+        Distracted & 0.95 & 0.84 & 118 & 0.95 & 0.65 & 152 & 0.87 & 0.90 & 152 \\
+        Drinking & 0.95 & 1.00 & 18 & 0.95 & 0.72 & 25 & 0.71 & 0.68 & 25 \\
+        Safe & 0.94 & 0.96 & 331 & 0.94 & 0.77 & 412 & 0.94 & 0.93 & 412 \\
+        Sleepy & 1.00 & 0.87 & 45 & 1.00 & 0.57 & 69 & 0.86 & 0.91 & 69 \\
+        Yawn & 0.69 & 1.00 & 25 & 0.69 & 0.96 & 26 & 1.00 & 0.88 & 26 \\
+        \midrule
+        Macro avg & 0.92 & 0.94 & 811 & 0.79 & 0.65 & 985 & 0.89 & 0.88 & 985 \\
+        Accuracy & 0.95 & \phantom{0} & 811 & 0.78 & \phantom{0} & 985 & 0.93 & \phantom{0} & 985 \\
+        \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+\end{table}
+
+
+\end{document}
