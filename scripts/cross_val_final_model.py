@@ -87,20 +87,20 @@ opt_params = {
 
 from tensorflow.keras.callbacks import EarlyStopping
 
-for i in tqdm.tqdm(range(1)):
+for i in tqdm.tqdm(range(12)):
 
-    X_train = np.load(f"../data/6_fold/X_train_fold{5}.npy")
-    y_train = np.load(f"../data/6_fold/y_train_fold{5}.npy")
-    X_valid = np.load(f"../data/6_fold/X_val_fold{5}.npy")
-    y_valid = np.load(f"../data/6_fold/y_val_fold{5}.npy")
-    X_test = np.load(f"../data/6_fold/X_test_fold{5}.npy")
-    y_test = np.load(f"../data/6_fold/y_test_fold{5}.npy")
+    X_train = np.load(f"../data/12_fold/X_train_fold{i}.npy")
+    y_train = np.load(f"../data/12_fold/y_train_fold{i}.npy")
+    X_valid = np.load(f"../data/12_fold/X_val_fold{i}.npy")
+    y_valid = np.load(f"../data/12_fold/y_val_fold{i}.npy")
+    X_test = np.load(f"../data/12_fold/X_test_fold{i}.npy")
+    y_test = np.load(f"../data/12_fold/y_test_fold{i}.npy")
 
     X_train = X_train/255.0
     X_valid = X_valid/255.0
     X_test = X_test/255.0
 
-    callback = EarlyStopping(monitor='val_loss', patience=10)
+    callback = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
 
     final_model = model_init(6, input_shape=(X_train[0].shape[0], X_train[0].shape[1], 1), num_dense_blocks=opt_params["num_dense_blocks"], num_dense_units=opt_params["num_dense_units"], num_conv_blocks=opt_params["num_conv_blocks"], filters=opt_params["filters"], kernel_size=opt_params["kernel_size"], pool_size=opt_params["pool_size"], dropout_rate=opt_params["dropout_rate"], padding="same", regularizer_strength=opt_params["regularizer_strength"], conv_activation=opt_params["conv_activation"], dense_activation=opt_params["dense_activation"])
 
@@ -110,12 +110,12 @@ for i in tqdm.tqdm(range(1)):
 
     history = final_model.fit(X_train, y_train, validation_data=(X_valid, y_valid), epochs=100, batch_size=16, callbacks=[callback])
 
-    np.save(f'../data/history_final_model_fold{5}.npy', history.history)
+    np.save(f'../data/history_final_model_fold{i}.npy', history.history)
     
     y_pred = final_model.predict(X_test)
     y_pred = np.argmax(y_pred, axis=1)
 
     y_true = np.argmax(y_test, axis=1)
 
-    np.save(f'../data/y_pred_final_fold{5}.npy', y_pred)
-    np.save(f'../data/y_true_final_fold{5}.npy', y_true)
+    np.savetxt(f'../data/y_pred_final_fold{i}.csv', np.array(y_pred), delimiter=',')
+    np.savetxt(f'../data/y_true_final_fold{i}.csv', np.array(y_true), delimiter=',')
