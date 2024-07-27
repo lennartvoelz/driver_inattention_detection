@@ -3,4 +3,5 @@
 *.json
 **/scripts/bayes_directory/
 **/scripts/test_directory/
-**/report_max/
+*.npy
+*.csv
